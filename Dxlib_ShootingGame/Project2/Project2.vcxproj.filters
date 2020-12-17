@@ -31,6 +31,9 @@
     <Filter Include="ヘッダー ファイル\Object">
       <UniqueIdentifier>{2e48d485-74b7-4a37-a937-418e3c456090}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\object\Shot">
+      <UniqueIdentifier>{5cdc0455-dca0-4bcf-bcd2-d36a57d23d1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameSceneMain.cpp">
@@ -60,32 +63,44 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>ソース ファイル\object</Filter>
     </ClCompile>
-    <ClCompile Include="Shot.cpp">
-      <Filter>ソース ファイル\object</Filter>
-    </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>ソース ファイル\object</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ReflectShot.cpp">
+    <ClCompile Include="EShot.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectStar.cpp">
       <Filter>ソース ファイル\object</Filter>
     </ClCompile>
     <ClCompile Include="ScoreData.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectStar.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyShot.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\object</Filter>
     </ClCompile>
     <ClCompile Include="ZakoEnemy.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\object</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyShot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="FallShot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectShot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="Shot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="HomingShot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
+    </ClCompile>
+    <ClCompile Include="StrikeShot.cpp">
+      <Filter>ソース ファイル\object\Shot</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,5 +158,8 @@
     <ClInclude Include="ZakoEnemy.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

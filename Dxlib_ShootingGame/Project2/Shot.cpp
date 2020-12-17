@@ -33,6 +33,7 @@ Shot::Shot(float _posX, float _PosY,int _parent) : GameObject(SHOT_LAYER)
 	hitRect.whd = VECTOR{ RectW , RectH , 1 };
 }
 
+//角度付き通常弾
 Shot::Shot(float _posX, float _PosY,float _angle, int _parent) : GameObject(SHOT_LAYER)
 {
 	pos = VECTOR{ _posX,_PosY,0 };
@@ -77,11 +78,12 @@ void Shot::hit(GameObject* obj, int collideID)
 	case PLAYER_TO_SHOT:
 		isDead = true;
 		new bomEffect(pos);
+		if(rand() % 2 == 0)new Item(pos);//得点アイテムを生成
 		break;
 	case ENEMY_TO_SHOT:
 		//当たったオブジェクトが自分が撃った弾だったら無視する
 		//if (obj->getLayer() == ENEMY_LAYER)break;	//自分の弾じゃねーか！！
-		//isDead = true;
+		isDead = true;
 		new bomEffect(pos);
 		//得点アイテムを生成
 		new Item(pos);

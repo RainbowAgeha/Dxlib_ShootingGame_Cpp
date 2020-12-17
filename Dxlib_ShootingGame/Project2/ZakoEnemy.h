@@ -6,7 +6,11 @@ class ZakoEnemy :
 {
 private:
     //変数関係
-    int EnemyImg;
+    int EnemyImg[48];
+    int EnemyIndex; //使用される画像ID
+    int MovePatten; //移動パターン
+    int UDMoveSpeed;
+    int AttackTime;
 
 public:
     //関数関係

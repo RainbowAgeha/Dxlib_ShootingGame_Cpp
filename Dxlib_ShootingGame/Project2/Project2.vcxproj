@@ -77,12 +77,15 @@
     <ClCompile Include="EffectStar.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyShot.cpp" />
+    <ClCompile Include="EShot.cpp" />
+    <ClCompile Include="FallShot.cpp" />
     <ClCompile Include="Game1Scene.cpp" />
     <ClCompile Include="Game2Scene.cpp" />
     <ClCompile Include="Game3Scene.cpp" />
     <ClCompile Include="GameMain.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSceneMain.cpp" />
+    <ClCompile Include="HomingShot.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -90,6 +93,7 @@
     <ClCompile Include="ReflectShot.cpp" />
     <ClCompile Include="ScoreData.cpp" />
     <ClCompile Include="Shot.cpp" />
+    <ClCompile Include="StrikeShot.cpp" />
     <ClCompile Include="ZakoEnemy.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +115,9 @@
     <ClInclude Include="ScoreData.h" />
     <ClInclude Include="Shot.h" />
     <ClInclude Include="ZakoEnemy.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

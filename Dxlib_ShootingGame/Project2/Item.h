@@ -7,6 +7,7 @@ class Item :
 private:
     int ItemImg;
     int DropSpeed;
+    int UpSpeed;
 public:
     Item(VECTOR pos);
     ~Item();

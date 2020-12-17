@@ -12,6 +12,8 @@ Item::Item(VECTOR pos):GameObject(ITEM_LAYER)
 
 	DropSpeed = -20;
 
+	UpSpeed = (rand() % 6) - 3;
+
 }
 
 Item::~Item()
@@ -24,11 +26,16 @@ void Item::move()
 	DropSpeed += 1;
 	if (DropSpeed > 5)DropSpeed = 5;	//‰Á‘¬‚³‚¹‚·‚¬‚È‚¢
 	pos.x -= DropSpeed;
+	pos.y += UpSpeed;
 	
 	//‰æ–ÊŠO‚É’´‚¦‚é‚æ‚¤‚È‚çŽ©•ª‚©‚çŽ€‚Ê
 	if (pos.x < -50 ||
-		pos.x > WINDOW_W + 200 ||	//‰æ–Ê¨‚Í‰ß‚¬‚Ä‚à–³Ž‹‚·‚é(‰½‚©‚ ‚Á‚½Žž—p‚Ì•ÛŒ¯
-		pos.y < -50 || pos.y > WINDOW_H + 50) isDead = true;
+		pos.x > WINDOW_W + 200)  isDead = true;	//‰æ–Ê¨‚Í‰ß‚¬‚Ä‚à–³Ž‹‚·‚é(‰½‚©‚ ‚Á‚½Žž—p‚Ì•ÛŒ¯
+		//pos.y < -50 || pos.y > WINDOW_H + 50) isDead = true;
+
+	//ã‰º‚Í”½“]‚·‚é
+	if (pos.y < 0 || pos.y > WINDOW_H - 32)UpSpeed = -UpSpeed;
+
 
 	//“–‚½‚è”»’è‚ðŒ©‚½–Ú‚Ì2”{‚É
 	hitRect.ImgPos = VECTOR{ pos.x - hitRect.whd.x,pos.y - hitRect.whd.y ,1};

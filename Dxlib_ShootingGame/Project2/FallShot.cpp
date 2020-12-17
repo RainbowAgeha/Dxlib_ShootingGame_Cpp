@@ -2,37 +2,35 @@
 #include "bomEffect.h"
 #include "Item.h"
 
-ReflectShot::ReflectShot(float _posX, float _PosY,float _angle) : GameObject(SHOT_LAYER)
+FallShot::FallShot(float _posX, float _PosY, float _angle) : GameObject(SHOT_LAYER)
 {
 	pos = VECTOR{ _posX,_PosY,0 };
 	angle = _angle;
 	Speed = 5.0f;
-	ShotImg = LoadGraph("res/needle.PNG", true);
+	ShotImg = LoadGraph("res/shot.png", true);
 	parent = PLAYER_LAYER;
+
+	fallSpeed = 0;
 
 	GetGraphSizeF(ShotImg, &hitRect.whd.x, &hitRect.whd.y);
 	hitRect.ImgPos = pos;
 
-	ReflectCount = 1;
-
 }
 
-ReflectShot::~ReflectShot()
+FallShot::~FallShot()
 {
 }
 
-void ReflectShot::move()
+void FallShot::move()
 {
 	//Šp“x‚ðŒ³‚ÉˆÚ“®‚·‚é
 	pos.x += (float)cos(angle * 3.1415 / 180) * Speed;
 	pos.y += (float)sin(angle * 3.1415 / 180) * Speed;
 
-	//•Ç‚É“–‚½‚Á‚½
-	if (ReflectCount > 0) {
-		if (pos.y < 0 || pos.y > WINDOW_H - hitRect.whd.y) {
-			angle = 360 - angle;
-		}
-	}
+	//‰º‚É—Ž‰º‚·‚é
+	fallSpeed += 0.98f;
+	if (fallSpeed > 10.0f)fallSpeed = 10.0f;
+	pos.y += fallSpeed;
 
 	hitRect.ImgPos = pos;
 	//‰æ–ÊŠO‚É’´‚¦‚é‚æ‚¤‚È‚çŽ©•ª‚©‚çŽ€‚Ê
@@ -41,12 +39,12 @@ void ReflectShot::move()
 
 }
 
-void ReflectShot::render()
+void FallShot::render()
 {
 	DrawGraph(pos.x, pos.y, ShotImg, true);
 }
 
-void ReflectShot::hit(GameObject* obj, int collideID)
+void FallShot::hit(GameObject* obj, int collideID)
 {
 	//“–‚½‚Á‚½‚çŽ©•ª‚ÍŽ€‚Ê
 	switch (collideID) {

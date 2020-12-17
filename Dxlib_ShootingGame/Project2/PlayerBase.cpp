@@ -2,49 +2,80 @@
 #include "Shot.h"
 
 void Player::PlayerInit() {
+
+	//Level.1 自機を表示しよう
+	//------------------------------------------------
 	x = -300;
 	y = -300;
+
+	//------------------------------------------------
 }
 
 void Player::PlayerMove()
 {
-
-	//プレイヤーの移動
-	if ((Input & PAD_INPUT_LEFT)) {
-		x = x - 5.0f;
-	}
-
-	if ((Input & PAD_INPUT_RIGHT)) {
-		x = x + 5.0f;
-	}
-
+	//Level.2　自機を操作できるようにしよう
+	//------------------------------------------------
+	//上キーが押されたら
 	if ((Input & PAD_INPUT_UP)) {
-		y = y - 5.0f;
+
 	}
 
+	//下キーが押されたら
 	if ((Input & PAD_INPUT_DOWN)) {
-		y = y + 5.0f;
+
 	}
 
-	//プレイヤーの位置を画面内に居るようにする
-	//if (x < 0) x = 0;
-	//if (y < 0) y = 0;
-	if (x > WINDOW_W) x = WINDOW_W;
-	if (y > WINDOW_H) y = WINDOW_H;
+	//左キーが押されたら
+	if ((Input & PAD_INPUT_LEFT)) {
+
+	}
+
+	//右キーが押されたら
+	if ((Input & PAD_INPUT_RIGHT)) {
+
+	}
+
+	//------------------------------------------------
+
+
+	//Level.3　プレイヤーを画面外に出ないようにしよう。
+	//------------------------------------------------
+	//左端の判定　座標を０以下を超えないようにする
+
+	//上端の判定　座標を０以下を超えないようにする
+
+	//右端の判定　座標を画面サイズ以上を超えないようにする
+
+	//下端の判定　座標を画面サイズ以上を超えないようにする
+
+
+	//------------------------------------------------
 }
 
 void Player::PlayerAttack()
 {
 
-	//プレイヤー攻撃
+	//Level4 自機から攻撃をしよう
+	//------------------------------------------------
 	if ((EdgeInput & PAD_INPUT_1)) {
-		new Shot(ShotX, ShotY, this->layer);
+
+
 	}
 
 	if ((EdgeInput & PAD_INPUT_2)) {
-		new ReflectShot(ShotX, ShotY, 30, this->layer);
-		new ReflectShot(ShotX, ShotY, -30, this->layer);
+
+
 	}
 
+	if ((EdgeInput & PAD_INPUT_3)) {
+
+
+	}
+
+	if ((EdgeInput & PAD_INPUT_4)) {
+
+
+	}
+	//------------------------------------------------
 
 }

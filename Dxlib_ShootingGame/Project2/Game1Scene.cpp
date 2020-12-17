@@ -36,6 +36,10 @@ int GameMode;
 int GameTime;
 int PerformanceTime;
 
+int PopTime;	//敵の出現時間
+#define POP_TIMER 120
+
+
 // シーン開始前の初期化を行う
 BOOL initGame1Scene(void) {
 
@@ -52,8 +56,10 @@ BOOL initGame1Scene(void) {
 	GameMode = GAME_MAIN;
 
 	//プレイ時間　秒　× 60フレーム
-	GameTime = 60 * 60;
+	GameTime = 120 * 60;
 	PerformanceTime = 5 * 60;
+
+	PopTime = POP_TIMER;
 
 	//new Enemy(800,200,0);
 	
@@ -82,12 +88,23 @@ void moveGame1Scene() {
 		if (Img_CL3_x < -WINDOW_W)Img_CL3_x += WINDOW_W;
 
 		//暫定　ザコ敵のオブジェクトを生成する
-		new ZakoEnemy(640, rand() % 480);
+		if (PopTime-- < 0) {
+			new ZakoEnemy(800, rand() % (480 - 40));
+			PopTime = rand() % POP_TIMER;
+		}
 
 		GameTime--;
-		if (GameTime < 0) GameMode = GAME_COMMING;
+		if (GameTime < 0) {
+			GameMode = GAME_COMMING;
+			GameTime = 0;
+		}
+
+
+		//オブジェクトに登録されているオブジェクト全部動かす
+		GameObjectList::instance()->moveAll();
 
 		break;
+
 	case GAME_COMMING:
 		//背景スクロール　奥から手前に向かって早くなる
 		Img_CL1_x -= 2;
@@ -103,6 +120,9 @@ void moveGame1Scene() {
 			GameTime = 121 * 60;	
 			new Enemy(800, 200, 0);
 		}
+
+		//オブジェクトに登録されているオブジェクト全部動かす
+		GameObjectList::instance()->moveAll();
 
 		break;
 	case GAME_BOSS:
@@ -126,6 +146,9 @@ void moveGame1Scene() {
 			GameMode = GAME_GAMEOVER;
 			PerformanceTime = 5 * 60;
 		}
+
+		//オブジェクトに登録されているオブジェクト全部動かす
+		GameObjectList::instance()->moveAll();
 
 		break;
 	case GAME_GAMECLEAR:
@@ -157,9 +180,6 @@ void moveGame1Scene() {
 		break;
 	}
 
-	//オブジェクトに登録されているオブジェクト全部動かす
-	GameObjectList::instance()->moveAll();
-
 }
 
 
@@ -178,7 +198,7 @@ void renderGame1Scene(void){
 	DrawGraph(Img_CL3_x, WINDOW_H - 160, Img_CroudLayer3, true);
 	DrawGraph(Img_CL3_x + WINDOW_W, WINDOW_H - 160, Img_CroudLayer3, true);
 
-	DrawFormatString(200, 0, GetColor(255, 255, 255), "Time:%d", GameTime / 60);
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "Time:%d.%02d", GameTime / 60, GameTime % 60);
 
 	//オブジェクトに登録されているオブジェクト全部表示する
 	GameObjectList::instance()->renderAll();

@@ -2,7 +2,7 @@
 #include "bomEffect.h"
 #include "Item.h"
 
-ReflectShot::ReflectShot(float _posX, float _PosY,float _angle) : GameObject(SHOT_LAYER)
+StrikeShot::StrikeShot(float _posX, float _PosY, float _angle) : GameObject(SHOT_LAYER)
 {
 	pos = VECTOR{ _posX,_PosY,0 };
 	angle = _angle;
@@ -13,26 +13,17 @@ ReflectShot::ReflectShot(float _posX, float _PosY,float _angle) : GameObject(SHO
 	GetGraphSizeF(ShotImg, &hitRect.whd.x, &hitRect.whd.y);
 	hitRect.ImgPos = pos;
 
-	ReflectCount = 1;
-
 }
 
-ReflectShot::~ReflectShot()
+StrikeShot::~StrikeShot()
 {
 }
 
-void ReflectShot::move()
+void StrikeShot::move()
 {
 	//角度を元に移動する
 	pos.x += (float)cos(angle * 3.1415 / 180) * Speed;
 	pos.y += (float)sin(angle * 3.1415 / 180) * Speed;
-
-	//壁に当たった
-	if (ReflectCount > 0) {
-		if (pos.y < 0 || pos.y > WINDOW_H - hitRect.whd.y) {
-			angle = 360 - angle;
-		}
-	}
 
 	hitRect.ImgPos = pos;
 	//画面外に超えるようなら自分から死ぬ
@@ -41,19 +32,18 @@ void ReflectShot::move()
 
 }
 
-void ReflectShot::render()
+void StrikeShot::render()
 {
 	DrawGraph(pos.x, pos.y, ShotImg, true);
 }
 
-void ReflectShot::hit(GameObject* obj, int collideID)
+void StrikeShot::hit(GameObject* obj, int collideID)
 {
 	//当たったら自分は死ぬ
 	switch (collideID) {
-	case PLAYER_TO_SHOT:
-		isDead = true;
+	case PLAYER_TO_SHOT:		
 		new bomEffect(pos);
-		if (rand() % 2 == 0)new Item(pos);//得点アイテムを生成
+
 		break;
 	case ENEMY_TO_SHOT:
 		//当たったオブジェクトが自分が撃った弾だったら無視する

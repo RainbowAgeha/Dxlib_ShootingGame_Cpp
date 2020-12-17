@@ -15,7 +15,7 @@ Enemy::Enemy(float _x, float _y, int id):GameObject(ENEMY_LAYER)
 	BossPattern = BossPattern_Init;
 	AttackTime = 0;
 	SyncTime = 0;
-	hp = 50;
+	hp = 1000;
 	maxhp = hp;
 
 	hitRect.ImgPos = pos;
@@ -45,9 +45,12 @@ void Enemy::move()
 
 		AttackTime++;
 		if (AttackTime > 30) {
-			new Shot(pos.x - 30, pos.y,180, this->layer);
+			new EShot(pos.x - 30, pos.y+40,180, this->layer);
 			AttackTime = 0;
 		}
+
+		//HPが怪しくなったら反撃モード
+		if (hp < 300)BossPattern = BossPattern_Provision;
 
 		break;
 	case BossPattern_MoveDown:
@@ -55,18 +58,49 @@ void Enemy::move()
 		pos.y += speed;
 		if (pos.y > 360) BossPattern = BossPattern_MoveUp;
 
+		//攻撃する
 		AttackTime++;
 		if (AttackTime > 30) {
-			new Shot(pos.x -30, pos.y, 180, this->layer);
+			new EShot(pos.x -30, pos.y, 180, this->layer);
 			AttackTime = 0;
 		}
 
+		//HPが怪しくなったら反撃モード
+		if(hp < 300)BossPattern = BossPattern_Provision;
+
 		break;
 
+	case BossPattern_Provision:
+		//反撃準備のため、画面中央まで移動する
+		if (pos.y > 200) {
+			pos.y -= 1;
+		}
+
+		if (pos.y < 200) {
+			pos.y += 1;
+		}
+
+		if (pos.y == 200)BossPattern = BossPattern_CounterAttack;
+
+		break;
+	case BossPattern_CounterAttack:
+		//死ぬまで猛攻撃
+		AttackTime++;
+		if (AttackTime > 30) {
+			//自機狙い
+
+
+			//バラマキ弾
+			for (int i = 0; i < 270; i += 15) {
+				new EShot(pos.x - 30, pos.y, i, this->layer);
+			}
+			AttackTime = 0;
+		}
+		break;
 	}
 
 	hitRect.ImgPos = pos;
-	colliderCheckAABB_2D(SHOT_LAYER, ENEMY_TO_SHOT);
+	colliderCheckAABB_2D(SHOT_LAYER, PLAYER_TO_SHOT);
 
 	//HPが0になったら死ぬ
 	if (hp <= 0) isDead = true;
@@ -92,8 +126,9 @@ void Enemy::render()
 void Enemy::hit(GameObject* obj, int collideID)
 {
 	switch (collideID) {
-	case ENEMY_TO_SHOT:
-		hp -= 5;
+	case PLAYER_TO_SHOT:
+
+		hp -= rand() % 5;
 		break;
 	}
 }

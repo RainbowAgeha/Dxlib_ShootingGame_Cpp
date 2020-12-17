@@ -13,6 +13,11 @@ private:
 	float RectW, RectH;
 
 	int score;
+
+	int ComboCount;
+	int ComboTimer;
+
+	int BASE_POINT = 50;
 public:
 	Player();
 	~Player();

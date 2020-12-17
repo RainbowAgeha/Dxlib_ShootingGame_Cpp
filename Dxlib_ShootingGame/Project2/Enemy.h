@@ -10,6 +10,8 @@ private:
     int AttackTime;     //色々使うよ攻撃タイム
     int SyncTime;       //色々使うよ考える時間
 
+    int AttackAngle;
+
     int maxhp;
 
     enum {
